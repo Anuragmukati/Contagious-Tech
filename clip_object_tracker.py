@@ -39,7 +39,13 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
     
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
+### 
 
+#we have to adjust the track ids that are not visible
+
+###
+
+    updater.reset(tracks = tracker.tracks)
     for track in tracker.tracks:
         if not track.is_confirmed() or track.time_since_update > 1:
             continue
@@ -50,11 +56,8 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         #track.track_id = 1
         
         # Limit deep sort track id only to 3 using custom updater
-        try:
-            updater.reset(track.track_id)
-            track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
-        except:
-            pass
+            
+        track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
            
         if opt.info:
             # track.track_id=1
