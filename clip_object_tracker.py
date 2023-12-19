@@ -50,10 +50,12 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         #track.track_id = 1
         
         # Limit deep sort track id only to 3 using custom updater
-        
-        updater.reset(track.track_id)
-        track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
-        
+        try:
+            updater.reset(track.track_id)
+            track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
+        except:
+            pass
+           
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
