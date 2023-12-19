@@ -22,6 +22,6 @@ class TrackerIDUpdater:
     def get_updated_track_id(self, deep_sort_id):
         for key in self.track_dict.keys():
             if self.track_dict[key] == deep_sort_id:
-                return key
+                return int(key)
         
         return -1
