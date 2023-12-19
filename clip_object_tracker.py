@@ -74,7 +74,7 @@ def get_color_for(class_num):
         "#8C29FF"
     ]
 
-    num = 1 # may actually be a number or a string
+    num = hash(class_num) # may actually be a number or a string
     hex = colors[num%len(colors)]
 
     # adapted from https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python
