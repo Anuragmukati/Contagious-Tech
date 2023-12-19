@@ -32,7 +32,7 @@ from utils.yolov7 import Yolov7Engine
 classes = []
 
 names = []
-
+updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
     if len(tracker.tracks):
@@ -48,7 +48,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         #track.track_id = 1
         
         # Limit deep sort track id only to 3 using custom updater
-        updater = TrackerIDUpdater()
+        global updater
         updater.reset(track.track_id)
         track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
         
@@ -68,6 +68,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             label = f'{class_name} #{track.track_id}'
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
+            
 
 def get_color_for(class_num):
     colors = [
