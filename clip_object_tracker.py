@@ -35,8 +35,8 @@ names = []
 updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
-    global updater
-    
+    # global updater
+    s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
 ### 
@@ -46,6 +46,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
 ###
 
     # updater.reset(tracks = tracker.tracks)
+    s2 = set(map(lambda track: track.track_id, tracker.tracks))
     for track in tracker.tracks:
         if not track.is_confirmed() or track.time_since_update > 1:
             continue
@@ -58,7 +59,8 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         # Limit deep sort track id only to 3 using custom updater
             
         # track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
-        track.track_id = track.track_id % 3 + 1
+        if track.track_id not in s1:
+           track.track_id = next(iter(s1 - s1.intersection(s2))) 
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
