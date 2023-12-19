@@ -35,6 +35,8 @@ names = []
 updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
+    global updater
+    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
 
@@ -48,9 +50,9 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         #track.track_id = 1
         
         # Limit deep sort track id only to 3 using custom updater
-        global updater
+        
         updater.reset(track.track_id)
-        track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
+        track.track_id = track.track_id * 10 + updater.get_updated_track_id(deep_sort_id = track.track_id)
         
         if opt.info:
             # track.track_id=1
