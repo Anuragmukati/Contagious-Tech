@@ -9,6 +9,7 @@ import torch
 import torch.backends.cudnn as cudnn
 from numpy import random
 import numpy as np
+from custom_id_updater import TrackerIDUpdater
 
 from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
@@ -44,7 +45,13 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         class_num = track.class_num
         bbox = xyxy
         class_name = names[int(class_num)] if opt.detection_engine == "yolov5" or "yolov7" else class_num
-        track.track_id = 1
+        #track.track_id = 1
+        
+        # Limit deep sort track id only to 3 using custom updater
+        updater = TrackerIDUpdater()
+        updater.reset(track.track_id)
+        track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
+        
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
