@@ -67,7 +67,8 @@ class Track:
                  feature=None, class_num=None):
         self.mean = mean
         self.covariance = covariance
-        self.track_id = track_id
+        #self.track_id = track_id
+        track_id=1
         self.hits = 1
         self.age = 1
         self.time_since_update = 0
