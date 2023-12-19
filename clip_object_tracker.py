@@ -52,7 +52,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         # Limit deep sort track id only to 3 using custom updater
         
         updater.reset(track.track_id)
-        track.track_id = track.track_id * 10 + updater.get_updated_track_id(deep_sort_id = track.track_id)
+        # track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
         
         if opt.info:
             # track.track_id=1
