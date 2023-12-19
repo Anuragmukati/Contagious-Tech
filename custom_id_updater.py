@@ -24,4 +24,4 @@ class TrackerIDUpdater:
             if self.track_dict[key] == deep_sort_id:
                 return int(key)
         
-        return -1
+        return deep_sort_id
