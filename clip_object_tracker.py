@@ -31,11 +31,11 @@ from utils.yolov7 import Yolov7Engine
 classes = []
 
 names = []
-updater = TrackerIDUpdater()
+#updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
     # global updater
-    s1 = {1, 2, 3}    
+    #s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
 ### 
@@ -45,7 +45,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
 ###
 
     # updater.reset(tracks = tracker.tracks)
-    s2 = set(map(lambda track: track.track_id, tracker.tracks))
+    #s2 = set(map(lambda track: track.track_id, tracker.tracks))
     for track in tracker.tracks:
         if not track.is_confirmed() or track.time_since_update > 1:
             continue
@@ -53,20 +53,20 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         class_num = track.class_num
         bbox = xyxy
         class_name = names[int(class_num)] if opt.detection_engine == "yolov5" or "yolov7" else class_num
-<<<<<<< HEAD
+
         #track.track_id = 1
         
         # Limit deep sort track id only to 3 using custom updater
             
         # track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
-        try:
+        '''try:
             if track.track_id not in s1:
                 track.track_id = next(iter(s1 - s1.intersection(s2))) 
         except:
             pass
-=======
+            '''
+
         track.track_id = 1
->>>>>>> parent of a70f502 (Updates)
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
