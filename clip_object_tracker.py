@@ -28,7 +28,7 @@ from utils.yolov5 import Yolov5Engine
 from utils.yolov4 import Yolov4Engine
 from utils.yolov7 import Yolov7Engine
 
-classes = [person]
+classes = []
 
 names = []
 
