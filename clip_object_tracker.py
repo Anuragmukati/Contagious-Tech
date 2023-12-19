@@ -59,8 +59,11 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         # Limit deep sort track id only to 3 using custom updater
             
         # track.track_id = updater.get_updated_track_id(deep_sort_id = track.track_id)
-        if track.track_id not in s1:
-           track.track_id = next(iter(s1 - s1.intersection(s2))) 
+        try:
+            if track.track_id not in s1:
+                track.track_id = next(iter(s1 - s1.intersection(s2))) 
+        except:
+            pass
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
