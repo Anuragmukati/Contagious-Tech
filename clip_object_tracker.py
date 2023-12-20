@@ -81,7 +81,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             with open(txt_path + '.txt', 'a') as f:
                 f.write('frame: {}; track: {}; class: {}; bbox: {};\n'.format(frame_count, track.track_id, class_num,
                                                                               *xywh))
-#hard var declare
+        #id var declare
         
         id = track.track_id
         try:
