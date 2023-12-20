@@ -86,7 +86,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         elif hard_var == 7 or hard_var == 8:
             hard_var = 2
                 
-        if save_img or view_img and hard_var != 4:  # Add bbox to image
+        if (save_img or view_img) and hard_var != 4:  # Add bbox to image
             label = f'{class_name} #{hard_var}'
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
