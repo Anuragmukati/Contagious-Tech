@@ -1,7 +1,7 @@
 import argparse
 import time
 from pathlib import Path
-from recognition import Recognizer=
+from recognition import Recognizer
 
 import clip
 
