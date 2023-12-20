@@ -1,6 +1,7 @@
 import argparse
 import time
 from pathlib import Path
+from recognition import Recognizer=
 
 import clip
 
@@ -31,6 +32,7 @@ from utils.yolov7 import Yolov7Engine
 import pandas as pd
 
 classes = []
+window_size = 90
 
 df = pd.DataFrame(columns = ['TrackId', 'Xmin', 'Ymin', 'Xmax', 'Ymax'])
 
@@ -40,6 +42,7 @@ names = []
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
     # global updater
     global df
+    global window_size
     #s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
@@ -94,11 +97,23 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 'Xmax' : xyxy[2],
                 'Ymax': xyxy[3]
             }
-            print(dict1)
+            
             df = df.append(dict1, ignore_index = True)
-            print("size of df is", df.shape)
+            
+            if df.shape[0] > window_size:
+                df2 = df.tail(window_size)
+            else:
+                df2 = df
+                
+            df2_1 = df2[df2['TrackId'] == 1]
+            rec = Recognizer(df2_1)
             
             label = f'{class_name} #{track.track_id}'
+            
+            if rec.detect_activity(type == 'jump') == True:
+                label = f'{class_name} #{track.track_id} - Jumped'
+            
+                
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
             
@@ -413,4 +428,4 @@ if __name__ == '__main__':
             detect()
 
     df.to_csv('test_file.csv', index = False)
-    print(df)
+    
