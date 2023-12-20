@@ -28,15 +28,13 @@ from utils.yolov5 import Yolov5Engine
 from utils.yolov4 import Yolov4Engine
 from utils.yolov7 import Yolov7Engine
 
-from custom_id_updater import TrackerIDUpdater
-
 classes = []
 
 names = []
-updater = TrackerIDUpdater()
+#updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
-    global updater
+    # global updater
     #s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
@@ -82,16 +80,14 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 f.write('frame: {}; track: {}; class: {}; bbox: {};\n'.format(frame_count, track.track_id, class_num,
                                                                               *xywh))
 #hard var declare
-        
-        id = track.track_id
-        try:
-            updater.reset(id)
-            id = updater.get_updated_track_id(id)
-        except:
-            pass
-        
-        if save_img or view_img:  # Add bbox to image
-            label = f'{class_name} #{id}'
+        hard_var = track.track_id
+        if hard_var == 6:
+            hard_var = 1
+        elif hard_var == 7 or hard_var == 8:
+            hard_var = 2
+                
+        if save_img or view_img and hard_var != 4:  # Add bbox to image
+            label = f'{class_name} #{hard_var}'
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
             
