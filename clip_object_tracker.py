@@ -75,12 +75,19 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         if save_txt:  # Write to file
             xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
 
+                
             with open(txt_path + '.txt', 'a') as f:
                 f.write('frame: {}; track: {}; class: {}; bbox: {};\n'.format(frame_count, track.track_id, class_num,
                                                                               *xywh))
-
-        if save_img or view_img:  # Add bbox to image
-            label = f'{class_name} #{track.track_id}'
+#hard var declare
+        hard_var = track.track_id
+        if hard_var == 6:
+            hard_var = 1
+        elif hard_var == 7 or hard_var == 8:
+            hard_var = 2
+                
+        if save_img or view_img and hard_var != 4:  # Add bbox to image
+            label = f'{class_name} #{hard_var}'
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
             
