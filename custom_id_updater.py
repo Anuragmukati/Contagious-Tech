@@ -4,6 +4,7 @@ class TrackerIDUpdater:
             "1" : None,
             "2" : None,
             "3" : None,
+            "4" : None,
         }
     
     def reset(self, tracks):
