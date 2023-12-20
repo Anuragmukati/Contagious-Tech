@@ -95,7 +95,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 'Ymax': xyxy[3]
             }
             print(dict1)
-            df.append(dict1, ignore_index = True)
+            df = df.append(dict1, ignore_index = True)
             print("size of df is", df.shape)
             
             label = f'{class_name} #{track.track_id}'
