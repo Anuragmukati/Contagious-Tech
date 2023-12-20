@@ -36,6 +36,7 @@ window_size = 90
 global_jumper = False
 
 
+
 df = pd.DataFrame(columns = ['TrackId', 'Xmin', 'Ymin', 'Xmax', 'Ymax'])
 
 names = []
@@ -103,20 +104,17 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             
             df = df.append(dict1, ignore_index = True)
             
-            if df.shape[0] > window_size:
-                df2 = df.tail(window_size)
-            else:
-                df2 = df
+            # if df.shape[0] > window_size:
+            #     df2 = df.tail(window_size)
+            # else:
+            #     df2 = df
                 
-            df2_1 = df2[df2['TrackId'] == 1]
-            rec = Recognizer(df2_1)
-            
-            if global_jumper == False:
-                label = f'{class_name} #{track.track_id}'
-            
-            if rec.detect_activity(type == 'jump') == True:
-                label = f'{class_name} #{track.track_id} - Jumped'
-                global_jumper = True
+            # df2_1 = df2[df2['TrackId'] == 1]
+            # rec = Recognizer(df2_1)
+            label = f'{class_name} #{track.track_id}'
+            if track.track_id == 1:
+                if df.shape[0] > 400:
+                    label = f'{class_name} #{track.track_id} - Jumped'
             
                 
             plot_one_box(xyxy, im0, label=label,
