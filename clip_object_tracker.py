@@ -95,6 +95,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 'Ymax': xyxy[3]
             }
             df.append(dict1, ignore_index = True)
+            print("size of df is", df.shape)
             
             label = f'{class_name} #{track.track_id}'
             plot_one_box(xyxy, im0, label=label,
