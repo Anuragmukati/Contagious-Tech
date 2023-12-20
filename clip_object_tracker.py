@@ -66,7 +66,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             pass
             '''
 
-        track.track_id = 1
+        # track.track_id = 1
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
