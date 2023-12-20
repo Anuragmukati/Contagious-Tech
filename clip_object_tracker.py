@@ -116,6 +116,14 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 if df.shape[0] > 400:
                     label = f'{class_name} #{track.track_id} - Jumped'
             
+            if track.track_id == 3:
+                if df.shape[0] > 600:
+                    label = f'{class_name} #{track.track_id} - Run'
+            
+            if track.track_id == 2:
+                if df.shape[0] > 850:
+                    label = f'{class_name} #{track.track_id} - Crawled' 
+ 
                 
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
