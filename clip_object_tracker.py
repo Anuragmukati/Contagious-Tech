@@ -94,6 +94,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 'Xmax' : xyxy[2],
                 'Ymax': xyxy[3]
             }
+            print(dict1)
             df.append(dict1, ignore_index = True)
             print("size of df is", df.shape)
             
