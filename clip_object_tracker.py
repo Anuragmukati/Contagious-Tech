@@ -33,6 +33,8 @@ import pandas as pd
 
 classes = []
 window_size = 90
+global_jumper = False
+
 
 df = pd.DataFrame(columns = ['TrackId', 'Xmin', 'Ymin', 'Xmax', 'Ymax'])
 
@@ -43,6 +45,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
     # global updater
     global df
     global window_size
+    global global_jumper
     #s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
@@ -108,10 +111,12 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             df2_1 = df2[df2['TrackId'] == 1]
             rec = Recognizer(df2_1)
             
-            label = f'{class_name} #{track.track_id}'
+            if global_jumper == False:
+                label = f'{class_name} #{track.track_id}'
             
             if rec.detect_activity(type == 'jump') == True:
                 label = f'{class_name} #{track.track_id} - Jumped'
+                global_jumper = True
             
                 
             plot_one_box(xyxy, im0, label=label,
