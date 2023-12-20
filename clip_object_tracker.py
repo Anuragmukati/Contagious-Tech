@@ -89,10 +89,10 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
         if (save_img or view_img):  # Add bbox to image
             dict1 = {
                 'TrackId' : track.track_id, 
-                'Xmin' : xyxy[0][0].item(), 
-                'Ymin' : xyxy[0][1].item(),
-                'Xmax' : xyxy[0][2].item(),
-                'Ymax': xyxy[0][3].item()
+                'Xmin' : xyxy[0], 
+                'Ymin' : xyxy[1],
+                'Xmax' : xyxy[2],
+                'Ymax': xyxy[3]
             }
             df.append(dict1, ignore_index = True)
             
