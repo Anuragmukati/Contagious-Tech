@@ -411,3 +411,4 @@ if __name__ == '__main__':
             detect()
 
     df.to_csv('test_file.csv', index = False)
+    print(df)
