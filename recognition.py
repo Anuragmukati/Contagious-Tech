@@ -1,8 +1,6 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks, butter, filtfilt
 import pandas as pd
-from ultralytics import YOLO
 from scipy.stats import linregress
 
 class Recognizer:
