@@ -32,7 +32,7 @@ from utils.yolov7 import Yolov7Engine
 import pandas as pd
 
 classes = []
-window_size = 90
+window_size = 400
 global_jumper = False
 
 
@@ -104,26 +104,26 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             
             df = df.append(dict1, ignore_index = True)
             
-            # if df.shape[0] > window_size:
-            #     df2 = df.tail(window_size)
-            # else:
-            #     df2 = df
-                
-            # df2_1 = df2[df2['TrackId'] == 1]
-            # rec = Recognizer(df2_1)
+            if df.shape[0] > window_size:
+                df2 = df.tail(window_size)
+            else:
+                df2 = df
+
+            rec = Recognizer(df2)
+            
             label = f'{class_name} #{track.track_id}'
-            if track.track_id == 1:
-                if df.shape[0] > 400:
-                    label = f'{class_name} #{track.track_id} - Jumped'
             
-            if track.track_id == 3:
-                if df.shape[0] > 600:
-                    label = f'{class_name} #{track.track_id} - Run'
+            if rec.detect_activity(type == 'run') == True:
+                label = f'{class_name} #{track.track_id} - Run' 
+            elif rec.detect_activity(type == 'crawl') == True:   
+                label = f'{class_name} #{track.track_id} - Crawled'
+        
+            elif rec.detect_activity(type == 'jump') == True:   
+                label = f'{class_name} #{track.track_id} - Jumped'
+             
+                     
             
-            if track.track_id == 2:
-                if df.shape[0] > 850:
-                    label = f'{class_name} #{track.track_id} - Crawled' 
- 
+            
                 
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
