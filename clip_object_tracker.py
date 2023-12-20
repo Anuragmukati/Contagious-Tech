@@ -28,13 +28,18 @@ from utils.yolov5 import Yolov5Engine
 from utils.yolov4 import Yolov4Engine
 from utils.yolov7 import Yolov7Engine
 
+import pandas as pd
+
 classes = []
+
+df = pd.DataFrame(columns = ['TrackId', 'Xmin', 'Ymin', 'Xmax', 'Ymax'])
 
 names = []
 #updater = TrackerIDUpdater()
 
 def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, im0, gn):
     # global updater
+    global df
     #s1 = {1, 2, 3}    
     if len(tracker.tracks):
         print("[Tracks]", len(tracker.tracks))
@@ -80,14 +85,18 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
                 f.write('frame: {}; track: {}; class: {}; bbox: {};\n'.format(frame_count, track.track_id, class_num,
                                                                               *xywh))
 #hard var declare
-        hard_var = track.track_id
-        if hard_var == 6:
-            hard_var = 1
-        elif hard_var == 7 or hard_var == 8:
-            hard_var = 2
-                
-        if (save_img or view_img) and hard_var != 4:  # Add bbox to image
-            label = f'{class_name} #{hard_var}'
+        
+        if (save_img or view_img):  # Add bbox to image
+            dict1 = {
+                'TrackId' : track.track_id, 
+                'Xmin' : xyxy[0][0].item(), 
+                'Ymin' : xyxy[0][1].item(),
+                'Xmax' : xyxy[0][2].item(),
+                'Ymax': xyxy[0][3].item()
+            }
+            df.append(dict1, ignore_index = True)
+            
+            label = f'{class_name} #{track.track_id}'
             plot_one_box(xyxy, im0, label=label,
                          color=get_color_for(label), line_thickness=opt.thickness)
             
@@ -400,3 +409,5 @@ if __name__ == '__main__':
                 strip_optimizer(opt.weights)
         else:
             detect()
+
+    df.to_csv('test_file.csv', index = False)
