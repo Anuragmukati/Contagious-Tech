@@ -66,8 +66,7 @@ def update_tracks(tracker, frame_count, save_txt, txt_path, save_img, view_img, 
             pass
             '''
 
-        if track.track_id == 6: track.track_id = 1
-        elif track.track_id == 7 or track.track_id == 8: track.track_id = 2
+        track.track_id = 1
         if opt.info:
             # track.track_id=1
             print("Tracker ID: {}, Class: {}, BBox Coords (xmin, ymin, xmax, ymax): {}".format(
